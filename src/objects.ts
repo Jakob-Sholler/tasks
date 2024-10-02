@@ -5,7 +5,7 @@ import { Question, QuestionType } from "./interfaces/question";
  * `expected` should be empty strings, the `options` should be an empty list, the `points`
  * should default to 1, and `published` should default to false.
  */
-
+/**oh this is how comments work okay.  */
 export function makeBlankQuestion(
     id: number,
     name: string,
@@ -30,6 +30,7 @@ export function makeBlankQuestion(
  *
  * HINT: Look up the `trim` and `toLowerCase` functions.
  */
+/**  trim the white space, and lowercase the answer and question, then return if they are the same.(correct) */
 export function isCorrect(question: Question, answer: string): boolean {
     const trimmedanswer = answer.trim().toLowerCase();
     const expectedanswer = question.expected.trim().toLowerCase();
@@ -42,6 +43,7 @@ export function isCorrect(question: Question, answer: string): boolean {
  * any answer is valid. But for a `multiple_choice_question`, the `answer` must
  * be exactly one of the options.
  */
+/** if it is a short answer return true, else if its multiple choice, and if answer is in options return true, or false. Else false  */
 export function isValid(question: Question, answer: string): boolean {
     if (question.type === "short_answer_question") {
         return true;
@@ -57,6 +59,7 @@ export function isValid(question: Question, answer: string): boolean {
  * separated by ": ". So for example, the question with id 9 and the
  * name "My First Question" would become "9: My First Q".
  */
+/** slice the name to be 10 length, then return the id with : + the shortend name */
 export function toShortForm(question: Question): string {
     const shortName = question.name.slice(0, 10);
     return question.id + ": " + shortName;
@@ -79,6 +82,10 @@ export function toShortForm(question: Question): string {
  * ------------------------------
  * Check the unit tests for more examples of what this looks like!
  */
+/** first line is # + name + \n for newline.
+ * then next line is - + the option and another newline.
+ * trim excess space from markdoown.
+ */
 export function toMarkdown(question: Question): string {
     let markdown = "# " + question.name + "\n";
     markdown += question.body + "\n";
@@ -95,6 +102,7 @@ export function toMarkdown(question: Question): string {
  * Return a new version of the given question, except the name should now be
  * `newName`.
  */
+/** spread the question, then set name to newname. */
 export function renameQuestion(question: Question, newName: string): Question {
     return {
         ...question,
@@ -107,6 +115,7 @@ export function renameQuestion(question: Question, newName: string): Question {
  * should be inverted. If the question was not published, now it should be
  * published; if it was published, now it should be not published.
  */
+/** spread question, then invert or set the published to not the current option.  */
 export function publishQuestion(question: Question): Question {
     return {
         ...question,
@@ -120,6 +129,7 @@ export function publishQuestion(question: Question): Question {
  * over as "Copy of ORIGINAL NAME" (e.g., so "Question 1" would become "Copy of Question 1").
  * The `published` field should be reset to false.
  */
+/**id set as id, name copy of + the old question, slice options because its an array. published is false, rest is the old of current i.e type = oldquestiontype */
 export function duplicateQuestion(id: number, oldQuestion: Question): Question {
     return {
         id: id,
@@ -140,8 +150,20 @@ export function duplicateQuestion(id: number, oldQuestion: Question): Question {
  * to the original question's list!
  * Check out the subsection about "Nested Fields" for more information.
  */
+/**create an added option, which is a slice of options, push the new option onto that. Then use each section to be the new, except options is the new added option that was pushed */
 export function addOption(question: Question, newOption: string): Question {
-    return question;
+    const addedOption = question.options.slice();
+    addedOption.push(newOption);
+    return {
+        id: question.id,
+        name: question.name,
+        body: question.body,
+        type: question.type,
+        options: addedOption,
+        expected: question.expected,
+        points: question.points,
+        published: question.published,
+    };
 }
 
 /**
@@ -152,11 +174,21 @@ export function addOption(question: Question, newOption: string): Question {
  * Notice that the second Question is provided as just an object with a `points`
  * field; but the function call would be the same as if it were a `Question` type!
  */
+/**od ma,e points, are themselves. body type options and expected are contentquestion, slice for options. published false.  */
 export function mergeQuestion(
     id: number,
     name: string,
     contentQuestion: Question,
     { points }: { points: number },
 ): Question {
-    return contentQuestion;
+    return {
+        id: id,
+        name: name,
+        body: contentQuestion.body,
+        type: contentQuestion.type,
+        options: contentQuestion.options.slice(),
+        expected: contentQuestion.expected,
+        points: points,
+        published: false,
+    };
 }
