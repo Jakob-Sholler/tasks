@@ -1,7 +1,10 @@
 import React from "react";
 import "./App.css";
-import { Button } from "react-bootstrap";
-import { Container, Row, Col } from "react-bootstrap";
+import { ChangeType } from "./components/ChangeType";
+import { RevealAnswer } from "./components/RevealAnswer";
+import { TwoDice } from "./components/TwoDice";
+import { Counter } from "./components/Counter";
+
 function App(): React.JSX.Element {
     return (
         <div className="App">
@@ -43,10 +46,14 @@ function App(): React.JSX.Element {
                     </Row>
                 </Container>
             </header>
-            <p>
-                Edit <code>src/App.tsx</code> and save. This page will
-                automatically reload. (Jakob Sholler) Hello World
-            </p>
+            <hr></hr>
+            <Counter></Counter>
+            <hr />
+            <RevealAnswer></RevealAnswer>
+            <hr />
+            <TwoDice></TwoDice>
+            <hr />
+            <ChangeType></ChangeType>
         </div>
     );
 }
