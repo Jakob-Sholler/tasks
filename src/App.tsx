@@ -7,7 +7,7 @@ import { Counter } from "./components/Counter";
 import { DoubleHalf } from "./bad-components/DoubleHalf";
 import { ColoredBox } from "./bad-components/ColoredBox";
 import { ChooseTeam } from "./bad-components/ChooseTeam";
-
+import { Button, Container, Row, Col } from "react-bootstrap";
 function App(): React.JSX.Element {
     return (
         <div className="App">
@@ -50,7 +50,7 @@ function App(): React.JSX.Element {
                 </Container>
             </header>
             <hr></hr>
-            {/* <DoubleHalf></DoubleHalf> */}
+            {<DoubleHalf></DoubleHalf>}
             <hr></hr>
             <ChooseTeam></ChooseTeam>
             <hr></hr>
