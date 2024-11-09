@@ -12,5 +12,35 @@ export function d6(): number {
 }
 
 export function TwoDice(): React.JSX.Element {
-    return <div>Two Dice</div>;
+    // Did it this way so the mock in the tests would work, roll still uses D6.
+    const [DieOne, setDieOne] = useState<number>(1);
+    const [DieTwo, setDieTwo] = useState<number>(2);
+
+    const rollOne = () => {
+        const newDieOne = d6();
+        setDieOne(newDieOne);
+    };
+    const rollTwo = () => {
+        const newDieTwo = d6();
+        setDieTwo(newDieTwo);
+    };
+
+    const checkResult = () => {
+        if (DieOne === 1 && DieTwo === 1) {
+            return "Lose Snake Eyes!";
+        } else if (DieOne === DieTwo) {
+            return "Win Doubles!";
+        } else {
+            return "";
+        }
+    };
+    return (
+        <div>
+            <span data-testid="left-die">{DieOne}</span>
+            <span data-testid="right-die">{DieTwo}</span>
+            <Button onClick={rollOne}>Roll Left</Button>
+            <Button onClick={rollTwo}>Roll Right</Button>
+            <p>{checkResult()}</p>
+        </div>
+    );
 }
